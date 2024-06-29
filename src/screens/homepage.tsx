@@ -1,18 +1,25 @@
-import { useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 
 function Homepage() {
   // const [count, setCount] = useState(0)
   // let applicationName: string = 'Application';
 
-  let username = useRef("");
-  let password = useRef("");
+  let usernameRef = useRef("");
+  let passwordRef = useRef("");
 
   function handleLogin() {
     console.log("User logging in.");
   }
 
-  function handleTextChange() {
-
+  function handleTextChange(e: ChangeEvent<HTMLInputElement>, type: string) {
+    switch(type) {
+      case 'username':
+        usernameRef.current = e.target.value
+        break;
+      case 'password':
+        passwordRef.current = e.target.value;
+        break;
+    }
   }
 
   return (
@@ -26,11 +33,11 @@ function Homepage() {
         <div className='h-4/5 w-2/3 bg-yellow-200 flex flex-col items-center justify-center'>
           <div className='flex flex-col items-start p-3'>
             <span className='text-gray-700 text-xs'>Email or username</span>
-            <input type='text'></input>
+            <input type='text' onChange={(e) => { handleTextChange(e, 'username')}}></input>
           </div>
           <div className='flex flex-col items-start'>
             <span className='text-gray-700 text-xs'>Password</span>
-            <input type='password'></input>
+            <input type='password' onChange={(e) => { handleTextChange(e, 'password')}}></input>
           </div>
           <div id="login-button" onClick={() => handleLogin()} className='flex items-center justify-center bg-blue-400 hover:bg-blue-700 text-white rounded-full mt-4 h-8 w-14'>Login</div>
           <div id="sign-up-link" className='text-gray-500 text-xs mt-1 hover:text-gray-800'>Not yet a user? Sign up</div>
